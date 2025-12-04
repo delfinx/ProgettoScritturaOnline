@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'Hello-Kitty';
+    src: url('Hello-Kitty/Boldins.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-box, .right-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-box p {
+    font-size: 3rem;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Linea verticale al centro */
+.container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+.container::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, black, transparent);
+}
+
+/* Stile per i link senza colore blu e senza sottolineatura */
+.left-box a {
+    font-size: 3rem;
+    text-decoration: none;
+    color: inherit;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Linea verticale al centro */
+.container {
+    position: relative;
+}
+
+.container::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, black, transparent);
+}
