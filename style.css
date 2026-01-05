@@ -8,6 +8,14 @@
 body {
     margin: 0;
     padding: 0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+    background-image: url("https://i.pinimg.com/736x/84/d3/d2/84d3d2cabc57458244e6318c43563e6e.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Contenitore principale */
@@ -25,7 +33,7 @@ body {
     bottom: 10%;
     left: 50%;
     width: 2px;
-    background: linear-gradient(to bottom, transparent, black, transparent);
+    background: linear-gradient(to bottom, transparent, rgb(255, 255, 255), transparent);
 }
 
 /* Sezioni sinistra e destra */
@@ -40,15 +48,19 @@ body {
 
 /* Testo a sinistra */
 .left-box p {
+    color: #f7f7f7;
     font-size: 3rem;
     text-align: center;
     margin: 10px 0;
+    position: relative;
+    z-index: 1;
+    
 }
 
 /* Link senza stile blu */
 .left-box a {
+    color: #f8f8f8;
     text-decoration: none;
-    color: inherit;
     margin: 10px 0;
     text-align: center;
 }
@@ -58,5 +70,13 @@ body {
     max-width: 100%;
     max-height: 100%;
     
+}
+
+.container::before { /*rende lo sfondo un pò piu scuro */
+    content: "";
+    position: relative;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); /* regola qui l’oscurità */
+    z-index: 0;
 }
 
