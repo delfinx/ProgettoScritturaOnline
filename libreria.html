@@ -6,6 +6,64 @@
     <title>Libreria</title>
 </head>
 <body>
-    
+    <h1>Libreria</h1>
+
+<input id="newTitle" placeholder="Nuovo libro">
+<button onclick="addBook()">Aggiungi</button>
+
+<ul id="lista"></ul>
+
+<script>
+const API = "http://localhost:3000/books";
+
+// LOAD LIST
+async function loadBooks() {
+  const res = await fetch(API);
+  const books = await res.json();
+
+  document.getElementById("lista").innerHTML = books.map(book => `
+    <li>
+      <input id="book-${book.id}" value="${book.title}">
+      <button onclick="save(${book.id})">💾</button>
+      <button onclick="del(${book.id})">❌</button>
+    </li>
+  `).join("");
+}
+
+// ADD BOOK
+async function addBook() {
+  const title = document.getElementById("newTitle").value;
+
+  await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title })
+  });
+
+  document.getElementById("newTitle").value = "";
+  loadBooks();
+}
+
+// UPDATE BOOK
+async function save(id) {
+  const title = document.getElementById("book-" + id).value;
+
+  await fetch(`${API}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title })
+  });
+
+  loadBooks();
+}
+
+// DELETE BOOK
+async function del(id) {
+  await fetch(`${API}/${id}`, { method: "DELETE" });
+  loadBooks();
+}
+
+loadBooks();
+</script>
 </body>
 </html>
