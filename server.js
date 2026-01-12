@@ -25,9 +25,7 @@ app.post("/api/items", (req, res) => {
 
 app.listen(3000, () => console.log("Backend avviato sulla porta 3000"));
  
-express = require("express");
 const bcrypt = require("bcrypt");
-db = require("./db");
 
 const router = express.Router();
 
@@ -76,4 +74,4 @@ app.use("/auth", authRoutes);
 const bookRoutes = require("./books");
 app.use("/books", bookRoutes);
 
-db = require("./db");
+

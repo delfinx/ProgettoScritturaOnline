@@ -41,4 +41,4 @@ router.delete("/:id", (req, res) => {
 
 module.exports = router;
 
-const db = require("./db");
+
