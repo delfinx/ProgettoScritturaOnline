@@ -1,36 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libreria</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libreria</title>
+
+<style>
+body {
+   margin: 0;
+  font-family: Arial, sans-serif;
+  padding: 30px;
+  color: white;
+
+  background-image: url("https://i.redd.it/a-library-that-i-made-v0-rbued4durtc81.png?width=1920&format=png&auto=webp&s=9d1a6987d3cf40239e808a6661f05c20493c355a");
+  background-size: cover;        /* riempie tutto lo schermo */
+  background-position: center;   /* centrata */
+  background-repeat: no-repeat;  /* non ripetere */
+  background-attachment: fixed;  /* effetto fermo mentre scrolli */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* oscurità regolabile */
+  z-index: -1;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Barra aggiunta libro */
+.top-bar {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.top-bar input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
+}
+
+.top-bar button {
+  padding: 10px 15px;
+  border: none;
+  background: #8b5a2b;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.top-bar button:hover {
+  background: #a66b33;
+}
+
+/* Scaffale */
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  position: relative;
+}
+
+/* Ripiano legno */
+.shelf::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: linear-gradient(#8b5a2b, #5c3a1e);
+  border-radius: 5px;
+}
+
+/* Libro */
+.book {
+  height: 220px;
+  background: linear-gradient(to right, #d35400, #e67e22);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Effetto dorso libro */
+.book::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+}
+
+.book:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+/* Pulsanti */
+.actions {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  writing-mode: horizontal-tb;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+}
+</style>
 </head>
+
 <body>
-    <h1>Libreria</h1>
 
-<input id="newTitle" placeholder="Nuovo libro">
-<button onclick="addBook()">Aggiungi</button>
+<h1>La Mia Libreria</h1>
 
-<ul id="lista"></ul>
+<div class="top-bar">
+  <input id="newTitle" placeholder="Nuovo libro">
+  <button onclick="addBook()">Aggiungi</button>
+</div>
+
+<div id="lista" class="shelf"></div>
 
 <script>
 const API = "http://localhost:3000/books";
 
-// LOAD LIST
 async function loadBooks() {
   const res = await fetch(API);
   const books = await res.json();
 
   document.getElementById("lista").innerHTML = books.map(book => `
-    <li>
-      <input id="book-${book.id}" value="${book.title}">
-      <button onclick="save(${book.id})">💾</button>
-      <button onclick="del(${book.id})">❌</button>
-    </li>
+    <div class="book">
+      <span id="book-${book.id}" contenteditable="true">${book.title}</span>
+      <div class="actions">
+        <button onclick="save(${book.id})">💾</button>
+        <button onclick="del(${book.id})">❌</button>
+      </div>
+    </div>
   `).join("");
 }
 
-// ADD BOOK
 async function addBook() {
   const title = document.getElementById("newTitle").value;
 
@@ -44,9 +166,8 @@ async function addBook() {
   loadBooks();
 }
 
-// UPDATE BOOK
 async function save(id) {
-  const title = document.getElementById("book-" + id).value;
+  const title = document.getElementById("book-" + id).innerText;
 
   await fetch(`${API}/${id}`, {
     method: "PUT",
@@ -57,7 +178,6 @@ async function save(id) {
   loadBooks();
 }
 
-// DELETE BOOK
 async function del(id) {
   await fetch(`${API}/${id}`, { method: "DELETE" });
   loadBooks();
@@ -65,5 +185,6 @@ async function del(id) {
 
 loadBooks();
 </script>
+
 </body>
 </html>
