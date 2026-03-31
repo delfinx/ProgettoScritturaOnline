@@ -133,6 +133,7 @@ h1 {
   <button onclick="addBook()">Aggiungi</button>
 </div>
 
+
 <div id="lista" class="shelf"></div>
 
 <script>
@@ -143,11 +144,11 @@ async function loadBooks() {
   const books = await res.json();
 
   document.getElementById("lista").innerHTML = books.map(book => `
-    <div class="book">
+    <div class="book" onclick="openBook(${book.id})">
       <span id="book-${book.id}" contenteditable="true">${book.title}</span>
       <div class="actions">
-        <button onclick="save(${book.id})">💾</button>
-        <button onclick="del(${book.id})">❌</button>
+        <button onclick="event.stopPropagation(); save(${book.id})">💾</button>
+        <button onclick="event.stopPropagation(); del(${book.id})">❌</button>
       </div>
     </div>
   `).join("");
@@ -184,6 +185,9 @@ async function del(id) {
 }
 
 loadBooks();
+function openBook(id){
+  window.location.href = "book.html?id=" + id;
+}
 </script>
 
 </body>
