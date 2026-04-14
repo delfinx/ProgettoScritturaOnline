@@ -80,3 +80,16 @@ body {
     z-index: 0;
 }
 
+.title {
+    font-size: 4.5rem;
+    text-align: center;
+}
+
+.nickname {
+    font-size: 4.5rem;
+    text-align: center;
+}
+
+.left-box a {
+    font-size: 2rem;
+}

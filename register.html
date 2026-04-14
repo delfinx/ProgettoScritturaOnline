@@ -143,6 +143,13 @@ async function reg(){
   });
 
   const data = await res.json();
+
+  // 👉 SALVA ANCHE IN LOCALE
+  if(data.message === "Registrazione ok!"){
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+  }
+
   document.getElementById("msg").innerText = data.message;
 }
 

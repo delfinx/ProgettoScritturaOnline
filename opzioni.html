@@ -115,7 +115,9 @@ function saveNickname(){
 async function saveEmail(){
     const email = document.getElementById("email").value;
 
-    await fetch(API + "/update-email", {
+    localStorage.setItem("email", email);
+
+    await fetch("http://localhost:3000/auth/update-email", {
         method:"PUT",
         headers:{ "Content-Type":"application/json" },
         body: JSON.stringify({ email })
@@ -128,13 +130,34 @@ async function saveEmail(){
 async function savePassword(){
     const password = document.getElementById("password").value;
 
-    await fetch(API + "/update-password", {
+    localStorage.setItem("password", password);
+
+    await fetch("http://localhost:3000/auth/update-password", {
         method:"PUT",
         headers:{ "Content-Type":"application/json" },
         body: JSON.stringify({ password })
     });
 
     alert("Password aggiornata!");
+}
+// CARICA DATI SALVATI
+window.onload = function(){
+
+    const email = localStorage.getItem("email");
+    const password = localStorage.getItem("password");
+    const nick = localStorage.getItem("nickname");
+
+    if(email){
+        document.getElementById("email").value = email;
+    }
+
+    if(password){
+        document.getElementById("password").value = password;
+    }
+
+    if(nick){
+        document.getElementById("nickname").value = nick;
+    }
 }
 </script>
 

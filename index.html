@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPACE</title>
 
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
+
 <body>
 
 <div class="container">
 
     <!-- SINISTRA -->
     <div class="left-box">
-        <p style="font-size: 450%;">Benvenuto</p>
-        <p style="font-family: 'Hello-Kitty', sans-serif; font-size: 450%;">Delfino</p>
+        <p class="title">Benvenuto</p>
+
+        <!-- QUI VIENE INSERITO IL NICKNAME -->
+        <p id="nickname" class="nickname" style="font-family: 'Hello-Kitty', sans-serif;">
+            Delfino
+        </p>
 
         <br><br>
 
-        <a href="register.html" style="font-size: 200%;">registrati</a>
-        <a href="armadietto.html" style="font-size: 200%;">armadietto</a>
-        <a href="opzioni.html" style="font-size: 200%;">opzioni</a>
+        <a href="register.html">registrati</a>
+        <a href="armadietto.html">armadietto</a>
+        <a href="opzioni.html">opzioni</a>
     </div>
 
     <!-- DESTRA -->
     <div class="right-box">
         <a href="libreria.html">
-            <img src="/immagini/libro_senza_sfondo.png"
-                 alt="Immagine di un libro aperto">
+            <img src="/immagini/libro_senza_sfondo.png" alt="Libro">
         </a>
     </div>
 
 </div>
+
+<script>
+/* prende il nickname salvato da opzioni */
+const nick = localStorage.getItem("nickname");
+
+if(nick){
+    document.getElementById("nickname").innerText = nick;
+}
+</script>
 
 </body>
 </html>
