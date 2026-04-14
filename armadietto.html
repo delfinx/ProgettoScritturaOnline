@@ -1,11 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>armadietto</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armadietto</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+
+    background-image: url("https://images3.alphacoders.com/246/246225.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: Arial;
+}
+
+/* riga principale */
+.top {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 60px;
+}
+
+/* quadrati */
+.box {
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,0.2);
+    border: 3px solid white;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.box:hover {
+    transform: scale(1.1);
+}
+
+/* contenitore secondario */
+.sub {
+    display: none;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+/* griglia 4x2 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+    gap: 20px;
+}
+</style>
 </head>
+
 <body>
-    
+
+<div class="top" id="topRow">
+    <div class="box" onclick="toggle(0)">1</div>
+    <div class="box" onclick="toggle(1)">2</div>
+    <div class="box" onclick="toggle(2)">3</div>
+    <div class="box" onclick="toggle(3)">4</div>
+    <div class="box" onclick="toggle(4)">5</div>
+</div>
+
+<div class="sub" id="subGrid">
+    <div class="grid">
+        <div class="box">A</div>
+        <div class="box">B</div>
+        <div class="box">C</div>
+        <div class="box">D</div>
+        <div class="box">E</div>
+        <div class="box">F</div>
+        <div class="box">G</div>
+        <div class="box">H</div>
+    </div>
+</div>
+
+<script>
+let openIndex = null;
+
+function toggle(index){
+    const topBoxes = document.querySelectorAll(".top .box");
+    const sub = document.getElementById("subGrid");
+
+    // se clicchi lo stesso → chiudi
+    if(openIndex === index){
+        topBoxes.forEach(box => box.style.display = "flex");
+        sub.style.display = "none";
+        openIndex = null;
+        return;
+    }
+
+    // salva quale hai aperto
+    openIndex = index;
+
+    // mostra solo quello cliccato
+    topBoxes.forEach((box, i) => {
+        box.style.display = (i === index) ? "flex" : "none";
+    });
+
+    // mostra griglia sotto
+    sub.style.display = "flex";
+}
+</script>
+
 </body>
 </html>
